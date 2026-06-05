@@ -1,4 +1,6 @@
 import os
+import argparse
+
 from dotenv import load_dotenv
 from google import genai
 
@@ -7,17 +9,19 @@ api_key = os.environ.get("GEMINI_API_KEY") or RuntimeError("GEMINI_API_KEY not f
 
 client = genai.Client(api_key=api_key)
 
+parser = argparse.ArgumentParser(description="AlexanderAI")
+parser.add_argument("user_prompt", type=str, help="The prompt to send to the AI model")
+args = parser.parse_args()
+
 def main():
     print("Hello from AlexanderAI!")
 
-    current_prompt = "Why is Boot.dev such a great place to learn backend development? Use one paragraph maximum."
-
     response = client.models.generate_content(
         model="gemini-2.5-flash",
-        contents=current_prompt
+        contents=args.user_prompt
     )
 
-    print("User prompt: ", current_prompt)
+    print("User prompt: ", args.user_prompt)
 
     if response.usage_metadata is not None:
       print("Prompt tokens: ", response.usage_metadata.prompt_token_count)
