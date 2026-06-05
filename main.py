@@ -19,12 +19,12 @@ def main():
   print("Hello from AlexanderAI!")
 
   messages: list[types.Content] = [
-      types.Content(role="user", parts=[types.Part(text=args.user_prompt)])
+    types.Content(role="user", parts=[types.Part(text=args.user_prompt)])
   ]
 
   response = client.models.generate_content(
-      model="gemini-2.5-flash",
-      contents=messages
+    model="gemini-2.5-flash",
+    contents=messages
   )
 
   if args.verbose and response.usage_metadata is not None:
@@ -38,4 +38,4 @@ def main():
     raise RuntimeError("Response usage metadata is None, cannot print token counts.")
 
 if __name__ == "__main__":
-    main()
+  main()
